@@ -1,6 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 body {
   font-family: Source Sans Pro,sans-serif;
+  color: #333;
   height: 100vh;
-  background-image: radial-gradient(farthest-side ellipse at 10% 0,#154265 20%,#7392c2);
+  background-image: radial-gradient(farthest-side ellipse at 10% 0,#fff 20%,#ccc);
+}
+
+.flex-parent-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-parent-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-child {
+  flex: 1;
+}
+
+.full-vh {
+  height: 100vh;
+}
+
+ng-component {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }

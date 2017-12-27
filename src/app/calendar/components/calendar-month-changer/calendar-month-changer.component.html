@@ -1,0 +1,13 @@
+<div class="flex-parent-row">
+    <div class="flex-child"></div>
+    <span (click)="decrementMonth()"
+          class="month-change-arrow month-change-left-arrow">
+        <i class="fas fa-angle-left fa-sm"></i>
+    </span>
+    <span class="month-year-display">{{firstDayOfMonth?.format('MMMM YYYY')}}</span>
+    <span (click)="incrementMonth()"
+          class="month-change-arrow month-change-right-arrow">
+        <i class="fas fa-angle-right fa-sm"></i>
+    </span>
+    <div class="flex-child"></div>
+</div>

@@ -1,12 +1,14 @@
+import * as moment from 'moment';
+
 export class CalendarEventModel {
   id: string;
-  launch_date: string;
+  launch_date: moment.Moment;
   title: string;
 
-  constructor({id, launchDate, title}) {
-    this.validateModelHydration(id, launchDate, title);
+  constructor({id, launch_date, title}) {
+    this.validateModelHydration(id, launch_date, title);
     this.id = id;
-    this.launch_date = launchDate;
+    this.launch_date = moment(launch_date);
     this.title = title;
   }
 
