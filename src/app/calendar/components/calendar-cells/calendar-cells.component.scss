@@ -1,0 +1,44 @@
+$border: 1px solid #ddd;
+
+.calendar-cell {
+  flex-basis: 13.5%;
+  border-right: $border;
+  border-bottom: $border;
+  overflow: hidden;
+
+  &.header {
+    border-bottom: none;
+    margin-left: 5px;
+  }
+}
+
+.header-container {
+  height: 40px;
+  line-height: 40px;
+  border-top: $border;
+  color: #888;
+}
+
+.date {
+  margin: 5px;
+}
+
+.event-container {
+  .event {
+    margin-top: 5px;
+  }
+
+  .event-title {
+    font-size: 12px;
+    margin: 0 5px;
+    color: #999;
+    position: relative;
+    top: -3px;
+  }
+
+  svg {
+    color: #e50914;
+    margin-left: 5px;
+    font-size: 7px;
+  }
+}

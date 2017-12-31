@@ -1,0 +1,46 @@
+<section class="flex-parent-row header-container">
+  <div class="calendar-cell header flex-child">Sun</div>
+  <div class="calendar-cell header flex-child">Mon</div>
+  <div class="calendar-cell header flex-child">Tue</div>
+  <div class="calendar-cell header flex-child">Wed</div>
+  <div class="calendar-cell header flex-child">Thu</div>
+  <div class="calendar-cell header flex-child">Fri</div>
+  <div class="calendar-cell header flex-child">Sat</div>
+</section>
+
+<section class="flex-parent-column flex-child">
+  <div class="cell-chunk-container flex-child flex-parent-column"
+       *ngFor="let cellRow of calendarCells">
+    <div class="flex-parent-row flex-child">
+      <div *ngFor="let cell of cellRow"
+           [class.disabled]="cell.isDisabled"
+           class="flex-child calendar-cell">
+        <div *ngIf="!cell.isDisabled"
+             class="flex-parent-column">
+          <div class="date">{{cell.date}}</div>
+          <div class="event-container flex-child flex-parent-column">
+            <div class="flex-child event flex-parent-row" *ngFor="let event of cell.events">
+              <i class="fas fa-circle fa-xs"></i>
+              <span class="flex-child event-title flex-overflow-ellipsis">{{event.title}}</span>
+            </div>
+            <div class="flex-child event flex-parent-row">
+              <i class="fas fa-circle fa-xs"></i>
+              <span class="flex-child event-title flex-overflow-ellipsis">Black Mirror</span>
+            </div>
+            <div class="flex-child event flex-parent-row">
+              <i class="fas fa-circle fa-xs"></i>
+              <span class="flex-child event-title flex-overflow-ellipsis">Queen</span>
+            </div>
+            <div class="flex-child event flex-parent-row">
+              <i class="fas fa-circle fa-xs"></i>
+              <span class="flex-child event-title flex-overflow-ellipsis">Netflix Original With Really Long Title</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+

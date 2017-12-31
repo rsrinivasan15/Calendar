@@ -3,7 +3,8 @@ body {
   font-family: Source Sans Pro,sans-serif;
   color: #333;
   height: 100vh;
-  background-image: radial-gradient(farthest-side ellipse at 10% 0,#fff 20%,#ccc);
+  background-image: radial-gradient(farthest-side ellipse at 10% 0,#fff 20%,#eee);
+  margin: 0;
 }
 
 .flex-parent-row {
@@ -20,8 +21,18 @@ body {
   flex: 1;
 }
 
+.flex-wrap-container {
+  flex-wrap: wrap;
+}
+
 .full-vh {
   height: 100vh;
+}
+
+.flex-overflow-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 ng-component {

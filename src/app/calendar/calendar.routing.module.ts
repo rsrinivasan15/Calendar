@@ -1,9 +1,19 @@
 import {RouterModule, Routes} from "@angular/router";
 import {CalendarComponent} from "./calendar.component";
 import {NgModule} from "@angular/core";
+import {CalendarRouteGuardService} from "./calendar-route-guard.service";
 
 const calendarRoutes: Routes = [
-  {path: 'calendar', component: CalendarComponent}
+  {
+    path: 'calendar',
+    canActivate: [CalendarRouteGuardService],
+    children: [
+      {path: ':year', component: CalendarComponent},
+      {path: ':year/:month', component: CalendarComponent},
+      {path: '', component: CalendarComponent},
+    ]
+  },
+
 ]
 
 @NgModule({
@@ -12,6 +22,9 @@ const calendarRoutes: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    CalendarRouteGuardService
   ]
 })
 export class CalendarRoutingModule {}

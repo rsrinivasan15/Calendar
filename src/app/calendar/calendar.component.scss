@@ -1,3 +1,64 @@
-:host {
+calendar-cells {
+  margin-top: 20px;
+}
 
+.netflix-logo {
+  background: no-repeat url(https://www.google.com/a/cpanel/netflix.com/images/logo.gif?service=google_default);
+  background-size: 95px;
+  width: 100px;
+  height: 30px;
+  margin-left: 10px;
+}
+
+.header-title {
+  display: inline-block;
+  font-family: 'Product Sans',Arial,sans-serif;
+  font-size: 22px;
+  position: relative;
+  top: 7px;
+  color: #666;
+}
+
+@media (max-width: 625px) {
+  .header-title {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .netflix-logo {
+    display: none;
+  }
+}
+
+calendar-month-changer {
+  line-height: 30px;
+  position: relative;
+  top: 4px;
+  margin-left: 10px;
+}
+
+header {
+  margin-top: 10px;
+}
+
+.current-month {
+  color: #fff;
+  background-color: #999;
+  display: inline-block;
+  text-decoration: none;
+  line-height: 1em;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  border-radius: 2px;
+  text-align: center;
+  border: 0;
+  position: relative;
+  top: 4px;
+
+  &:hover {
+    background-color: #888;
+  }
 }

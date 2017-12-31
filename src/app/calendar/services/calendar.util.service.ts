@@ -9,6 +9,16 @@ export class CalendarUtilService {
       .date(1)
       .hour(0)
       .minute(0)
+      .second(0)
+      .millisecond(0);
+  }
+
+  public getMomentForMidnight(momentDate: moment.Moment): moment.Moment {
+    return momentDate
+      .clone()
+      .hour(0)
+      .minute(0)
+      .second(0)
       .millisecond(0);
   }
 }

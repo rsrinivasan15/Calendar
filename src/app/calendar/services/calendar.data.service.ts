@@ -6,7 +6,7 @@ import * as moment from "moment";
 
 @Injectable()
 export class CalendarDataService {
-  private eventToMonthMap: Map<number, CalendarEventModel[]> = new Map();
+  private eventToMonthMap: Map<number, Map<number, CalendarEventModel[]>> = new Map();
   private getEventsCallPromise;
 
   constructor(private http: HttpClient,
@@ -18,12 +18,19 @@ export class CalendarDataService {
           response.data.forEach((event) => {
             const eventModel = new CalendarEventModel(event);
             const eventFirstOfMonthUnixTime = calendarUtilService.getMomentForFirstOfMonth(eventModel.launch_date).valueOf();
+            const eventMidnightUnixTime = calendarUtilService.getMomentForMidnight(eventModel.launch_date).valueOf();
             if (this.eventToMonthMap.has(eventFirstOfMonthUnixTime)) {
-              this.eventToMonthMap.get(eventFirstOfMonthUnixTime).push(eventModel);
+              let monthEvents = this.eventToMonthMap.get(eventFirstOfMonthUnixTime);
+              if (monthEvents.has(eventMidnightUnixTime)) {
+                monthEvents.get(eventMidnightUnixTime).push(eventModel);
+              } else {
+                monthEvents.set(eventMidnightUnixTime, [eventModel]);
+              }
             } else {
-              this.eventToMonthMap.set(eventFirstOfMonthUnixTime, [eventModel]);
+              this.eventToMonthMap.set(eventFirstOfMonthUnixTime, new Map().set(eventMidnightUnixTime, [eventModel]));
             }
           });
+          console.log('event to month map:', this.eventToMonthMap);
           resolve();
         }, (error) => {
           reject(error);
@@ -31,11 +38,11 @@ export class CalendarDataService {
     });
   }
 
-  public getEventsForMonth(firstDayOfMonth: moment.Moment): Promise<CalendarEventModel[]> {
+  public getEventsForMonth(firstDayOfMonth: moment.Moment): Promise<Map<number, CalendarEventModel[]>> {
     return new Promise((resolve, reject) => {
       this.getEventsCallPromise
         .then(() => {
-          resolve(this.eventToMonthMap.get(firstDayOfMonth.valueOf()) || []);
+          resolve(this.eventToMonthMap.get(firstDayOfMonth.valueOf()) || new Map());
         }).catch((error) => {
           reject(error);
         });

@@ -6,6 +6,7 @@ import {fakeAsync} from "@angular/core/testing";
 
 describe('Calendar Data Service', () => {
   let dataService: CalendarDataService;
+  let calendarUtilService: CalendarUtilService;
 
   beforeEach(() => {
     let calendarEventResponse = new BehaviorSubject(
@@ -35,34 +36,38 @@ describe('Calendar Data Service', () => {
     });
     let mockHttpClient = jasmine.createSpyObj(['get']);
     mockHttpClient.get.and.returnValue(calendarEventResponse);
-    dataService = new CalendarDataService(mockHttpClient, new CalendarUtilService());
+    calendarUtilService = new CalendarUtilService();
+    dataService = new CalendarDataService(mockHttpClient, calendarUtilService);
   });
 
   describe('will get events for the month', () => {
-    it('can return all the events if a month has multiple events', fakeAsync(() => {
+    it('can return all the events as a map if a month has multiple events', fakeAsync(() => {
       const firstDayOfMonth = moment('2017-01-01 00:00:00');
+      const firstEventMoment = moment('2017-01-09 00:00:00');
+      const secondEventMoment = moment('2017-01-10 00:00:00');
       const eventsPromise = dataService.getEventsForMonth(firstDayOfMonth);
-      eventsPromise.then((events) => {
-        expect(events.length).toBe(2);
-        expect(events[0].id).toBe('event1');
-        expect(events[1].id).toBe('event2');
+      eventsPromise.then((eventsMap) => {
+        expect(eventsMap.size).toBe(2);
+        expect(eventsMap.get(calendarUtilService.getMomentForMidnight(firstEventMoment).valueOf())[0].id).toBe('event1');
+        expect(eventsMap.get(calendarUtilService.getMomentForMidnight(secondEventMoment).valueOf())[0].id).toBe('event2');
       });
     }));
 
-    it('can return a event if a month has one event', fakeAsync(() => {
+    it('can return a map with one event if a month has one event', fakeAsync(() => {
+      const eventDay = moment('2017-02-21 00:00:00');
       const firstDayOfMonth = moment('2017-02-01 00:00:00');
       const eventsPromise = dataService.getEventsForMonth(firstDayOfMonth);
-      eventsPromise.then((events) => {
-        expect(events.length).toBe(1);
-        expect(events[0].id).toBe('event3');
+      eventsPromise.then((eventsMap) => {
+        expect(eventsMap.size).toBe(1);
+        expect(eventsMap.get(calendarUtilService.getMomentForMidnight(eventDay).valueOf())[0].id).toBe('event3');
       });
     }));
 
-    it('can return empty array if there are no events for the month', () => {
+    it('can return a map with no elements if there are no events for the month', () => {
       const firstDayOfMonth = moment('2017-04-01 00:00:00');
       const eventsPromise = dataService.getEventsForMonth(firstDayOfMonth);
-      eventsPromise.then((events) => {
-        expect(events.length).toBe(0);
+      eventsPromise.then((eventsMap) => {
+        expect(eventsMap.size).toBe(0);
       });
     });
   });

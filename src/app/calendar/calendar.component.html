@@ -1,3 +1,12 @@
-<div class="flex-parent-column">
-  <calendar-month-changer [(firstDayOfMonth)]="firstDayOfMonthShownInCalendar"></calendar-month-changer>
+<div class="flex-parent-column flex-child">
+  <header class="flex-parent-row">
+    <span class="netflix-logo"></span>
+    <span class="header-title">Originals Calendar</span>
+    <span class="flex-child"></span>
+    <button class="current-month" (click)="setCurrentMonth()">CURRENT MONTH</button>
+    <calendar-month-changer [firstDayOfMonth]="firstDayOfMonthShownInCalendar"
+                            (firstDayOfMonthChange)="onMonthChange($event)"></calendar-month-changer>
+    <span class="flex-child"></span>
+  </header>
+  <calendar-cells class="flex-child flex-parent-column"></calendar-cells>
 </div>
