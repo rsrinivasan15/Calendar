@@ -6,6 +6,7 @@ import * as moment from "moment";
 
 @Injectable()
 export class CalendarDataService {
+  // Contains monthly event data sliced by day.
   private eventToMonthMap: Map<number, Map<number, CalendarEventModel[]>> = new Map();
   private getEventsCallPromise;
 
@@ -30,7 +31,6 @@ export class CalendarDataService {
               this.eventToMonthMap.set(eventFirstOfMonthUnixTime, new Map().set(eventMidnightUnixTime, [eventModel]));
             }
           });
-          console.log('event to month map:', this.eventToMonthMap);
           resolve();
         }, (error) => {
           reject(error);
@@ -38,6 +38,11 @@ export class CalendarDataService {
     });
   }
 
+  /**
+   * Returns the events for the month, sliced by day
+   * @param {moment.Moment} firstDayOfMonth
+   * @returns {Promise<Map<number, CalendarEventModel[]>>}
+   */
   public getEventsForMonth(firstDayOfMonth: moment.Moment): Promise<Map<number, CalendarEventModel[]>> {
     return new Promise((resolve, reject) => {
       this.getEventsCallPromise

@@ -1,5 +1,8 @@
 import * as moment from 'moment';
 
+/**
+ * Model to hold a calendar event.
+ */
 export class CalendarEventModel {
   id: string;
   launch_date: moment.Moment;
@@ -12,17 +15,23 @@ export class CalendarEventModel {
     this.title = title;
   }
 
-  private validateModelHydration(id, launchDate, title) {
+  /**
+   * Throw an error if id, launchDate or title is missing.
+   * @param {string} id
+   * @param {string} launchDate
+   * @param {string} title
+   */
+  private validateModelHydration(id:string, launchDate:string, title:string) {
     if (!id) {
       throw new Error('CalendarEvent needs an id');
     }
 
     if (!launchDate) {
-      throw new Error('CalendarEvent needs an launchDate');
+      throw new Error('CalendarEvent needs a launchDate');
     }
 
     if (!title) {
-      throw new Error('CalendarEvent needs an title');
+      throw new Error('CalendarEvent needs a title');
     }
   }
 }
